@@ -27,6 +27,7 @@ try {
             def existingDeploymentConfig = readFile('tempGetDC').trim()
 
             if(existingDeploymentConfig == "No resources found.") {
+		//sh """oc create -f example-spring-boot-template.json"""
                 sh """oc process -p NAME='example-spring-boot-helloworld-$branch' -p SOURCE_REPOSITORY_URL=https://github.com/<GITHUB URL>.git SOURCE_REPOSITORY_REF=$source -l app='example-spring-boot-helloworld-$branch' example-spring-boot-template | oc apply -f -"""
                 sh """oc start-build example-spring-boot-helloworld-$branch --from-dir"." -n test-java """
                 openshiftVerifyBuild apiURL: '', bldCfg: """example-spring-boot-helloworld-$branch""", checkForTriggeredDeployments: 'false', namespace: 'test-java', verbose: 'false'
