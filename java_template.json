@@ -17,7 +17,7 @@
   "message": "The following service(s) have been created in your project: ${NAME}.",
   "labels": {
     "template": "java-jenkins-template",
-    "app": "${SOURCE_REPOSITORY_REF}"
+    "app": "example-spring-boot"
   },
   "objects": [
     {
@@ -26,7 +26,7 @@
       "metadata": {
         "name": "${NAME}",
         "annotations": {
-          "description": "Exposes and load balances the application pods",
+          "description": "Exposes and load balances the application pods"
         }
       },
       "spec": {
@@ -79,7 +79,7 @@
           "type": "Docker",
           "dockerStrategy": {
             "forcePull": "true"
-          },
+          }
         },
         "output": {
           "to": {
@@ -139,7 +139,7 @@
                     "path": "/",
                     "port": 8080
                   }
-                },
+                }
               }
             ]
           }
@@ -159,7 +159,7 @@
       "displayName": "Namespace",
       "description": "The OpenShift Namespace where the ImageStream resides.",
       "required": true,
-      "value": "<PROJECT NAME>"
+      "value": "test-java"
     },
     {
       "name": "MEMORY_LIMIT",
@@ -187,6 +187,7 @@
       "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
       "required": true
     },
+
     {
       "name": "CONTEXT_DIR",
       "displayName": "Context Directory",

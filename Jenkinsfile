@@ -28,7 +28,7 @@ try {
 
             if(existingDeploymentConfig == "No resources found.") {
 		//sh """oc create -f example-spring-boot-template.json"""
-                sh """oc process -p NAME='example-spring-boot-$branch' -p SOURCE_REPOSITORY_URL=https://github.com/<GITHUB URL>.git SOURCE_REPOSITORY_REF=$source -l app='example-spring-boot-$branch' example-spring-boot | oc apply -f -"""
+                sh """oc process -p NAME='example-spring-boot-$branch' -p SOURCE_REPOSITORY_URL=https://github.com/afeiszli/example-spring-boot-helloworld.git SOURCE_REPOSITORY_REF=$source -l app='example-spring-boot-$branch' example-spring-boot | oc apply -f -"""
                 sh """oc start-build example-spring-boot-$branch --from-dir"." -n test-java """
                 openshiftVerifyBuild apiURL: '', bldCfg: """example-spring-boot-$branch""", checkForTriggeredDeployments: 'false', namespace: 'test-java', verbose: 'false'
                 openshiftDeploy depCfg: """example-spring-boot-$branch""", verbose: 'false', namespace: 'test-java'
