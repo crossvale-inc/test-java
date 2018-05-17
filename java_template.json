@@ -78,7 +78,7 @@
         "strategy": {
           "type": "Docker",
           "dockerStrategy": {
-            "forcePull": "true"
+            "forcePull": true
           }
         },
         "output": {
