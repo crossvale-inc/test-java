@@ -29,13 +29,13 @@ try {
             if(existingDeploymentConfig == "No resources found.") {
 		//sh """oc create -f example-spring-boot-template.json"""
                 sh """oc process -p NAME='example-spring-boot-$branch' -p SOURCE_REPOSITORY_URL=https://github.com/afeiszli/example-spring-boot-helloworld.git SOURCE_REPOSITORY_REF=$source -l app='example-spring-boot-$branch' java-jenkins-template | oc apply -f -"""
-                sh """oc start-build example-spring-boot-$branch --from-dir="." -n test-java """
+                sh """oc start-build example-spring-boot-$branch --from-dir=. -n test-java """
                 openshiftVerifyBuild apiURL: '', bldCfg: """example-spring-boot-$branch""", checkForTriggeredDeployments: 'false', namespace: 'test-java', verbose: 'false'
                 openshiftDeploy depCfg: """example-spring-boot-$branch""", verbose: 'false', namespace: 'test-java'
                 openshiftVerifyDeployment depCfg: """example-spring-boot-$branch""", verbose: 'false', namespace: 'test-java'
             } else {
-                openshiftBuild apiURL: '', authToken: '', bldCfg: """example-spring-boot-$branch""", buildName: '', checkForTriggeredDeployments: 'false', commitID: '', namespace: 'test-java', showBuildLogs: 'true', verbose: 'false', waitTime: '', waitUnit: 'sec'
-                openshiftDeploy depCfg: """example-spring-boot-$branch""", verbose: 'false', namespace: 'test-java'
+                sh """oc start-build example-spring-boot-helloworld-$branch --from-dir=. -n test-java """                
+		openshiftDeploy depCfg: """example-spring-boot-$branch""", verbose: 'false', namespace: 'test-java'
                 openshiftVerifyDeployment depCfg: """example-spring-boot-$branch""", verbose: 'false', namespace: 'test-java'
             }
 
